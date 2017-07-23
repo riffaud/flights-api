@@ -2,6 +2,11 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 
+function filterQantasSydneyFLights(flight) {
+  return flight.airline == 'QF' &&
+    (flight.departure.airport == 'SYD' || flight.arrival.airport == 'SYD');
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -21,7 +26,7 @@ app.use((req, res, next) => {
 
 
 app.post('/flights', (req, res) => {
-    var flights = req.body.flights;
+    var flights = req.body.flights.filter(filterQantasSydneyFLights);
 });
 
 app.listen(3000, () => {
