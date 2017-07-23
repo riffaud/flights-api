@@ -39,11 +39,11 @@ app.post('/flights', (req, res) => {
         })
     }
 
-    res.send({ flights: JSON.stringify(flattenedFlightsData) });
+    res.send({ flights: flattenedFlightsData });
 });
 
 app.listen(port, () => {
-    console.log('App started and running on port 3000!');
+    console.log('App started and running on port %s!', port);
 });
 
 module.exports = app;
