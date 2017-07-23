@@ -24,6 +24,6 @@ This software depends on [Mocha](https://mochajs.org/) and [Chai](http://chaijs.
     
 ## Built with
 
-[Node.js](https://nodejs.org/en/download/)
-[Express 4](http://expressjs.com)
-[Mocha](https://mochajs.org/) and [Chai](http://chaijs.com) for running tests
+* [Node.js](https://nodejs.org/en/download/)
+* [Express 4](http://expressjs.com)
+* [Mocha](https://mochajs.org/) and [Chai](http://chaijs.com) for running tests
