@@ -16,6 +16,8 @@ And then to start the API:
 
     npm start
 
+You can now send POST requests to http://localhost:8080/flights
+
 ## Running the tests
 
 This software depends on [Mocha](https://mochajs.org/) and [Chai](http://chaijs.com) for running tests.
