@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/riffaudo/flights-api/issues"
   },
-  "homepage": "https://github.com/riffaudo/flights-api#readme"
+  "homepage": "https://github.com/riffaudo/flights-api#readme",
+  "engines": {
+    "node": "4.1.1"
+  }
 }
