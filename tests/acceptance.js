@@ -33,4 +33,26 @@ describe('/POST flights', () => {
                 done();
             });
     });
+    it('missing data in the requested payload should be silently ignored', (done) => {
+        chai.request(server)
+            .post('/flights')
+            .send({
+                "flights": [
+                    {
+                        "airline": "QF"
+                    },
+                    {
+                        "airline": "QF",
+                        "arrival": {"airport": "SYD"},
+                        "departure": {"airport": "PAR"},
+                    }
+                ]
+            })
+            .type('json')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.flights.should.have.lengthOf(1); 
+                done();
+            });
+    });
 });

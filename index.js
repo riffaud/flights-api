@@ -5,6 +5,7 @@ var port = process.env.PORT || 8080;
 
 function filterQantasSydneyFlights(flight) {
     return flight.airline == 'QF' &&
+        flight.departure !== undefined && flight.arrival !== undefined &&
         (flight.departure.airport == 'SYD' || flight.arrival.airport == 'SYD');
 }
 
