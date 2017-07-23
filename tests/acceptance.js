@@ -18,6 +18,7 @@ describe('/POST flights', () => {
             .type('json')
             .end((err, res) => {
                 res.should.have.status(400);
+                assert.equal(res.text, '{"error":"error parsing JSON"}');
                 done();
             });
     });
