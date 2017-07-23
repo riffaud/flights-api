@@ -12,7 +12,7 @@ To install, run in a terminal:
 
     npm install
 
-And then to run
+And then to start the API:
 
     npm start
 
