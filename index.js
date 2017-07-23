@@ -28,6 +28,12 @@ app.use((req, res, next) => {
 
 
 app.post('/flights', (req, res) => {
+    if (req.body === undefined || req.body.flights === undefined) {
+        res.status(400);
+        res.send(JSON.stringify({ error: "incomplete data" }));
+        return;
+    }
+
     var flights = req.body.flights.filter(filterQantasSydneyFlights);
     var flattenedFlightsData = [];
 

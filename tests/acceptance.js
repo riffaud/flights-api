@@ -22,6 +22,17 @@ describe('/POST flights', () => {
                 done();
             });
     });
+    it('should return an error message when the json is incomplete', (done) => {
+        chai.request(server)
+            .post('/flights')
+            .send({})
+            .type('json')
+            .end((err, res) => {
+                res.should.have.status(400);
+                assert.equal(res.text, '{"error":"incomplete data"}');
+                done();
+            });
+    });
     it('example data sets should match', (done) => {
         chai.request(server)
             .post('/flights')
