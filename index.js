@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use((error, req, res, next) => {
     if (error instanceof SyntaxError) {
         res.status(400);
-        res.send(JSON.stringify({ error: "error parsing JSON" }));
+        res.send({ error: "error parsing JSON" });
     } else {
         next();
     }
@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 app.post('/flights', (req, res) => {
     if (req.body === undefined || req.body.flights === undefined) {
         res.status(400);
-        res.send(JSON.stringify({ error: "incomplete data" }));
+        res.send({ error: "incomplete data" });
         return;
     }
 
