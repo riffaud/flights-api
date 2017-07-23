@@ -28,8 +28,7 @@ describe('/POST flights', () => {
             .type('json')
             .end((err, res) => {
                 res.should.have.status(200);
-                assert(JSON.stringify(exampleResponse), res.body, 'Examples do not match');
-
+                assert.equal(JSON.stringify(exampleResponse), JSON.stringify(res.body), 'Examples do not match');
                 done();
             });
     });
