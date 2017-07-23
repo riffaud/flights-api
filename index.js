@@ -2,9 +2,9 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 
-function filterQantasSydneyFLights(flight) {
-  return flight.airline == 'QF' &&
-    (flight.departure.airport == 'SYD' || flight.arrival.airport == 'SYD');
+function filterQantasSydneyFlights(flight) {
+    return flight.airline == 'QF' &&
+        (flight.departure.airport == 'SYD' || flight.arrival.airport == 'SYD');
 }
 
 app.use(bodyParser.json());
@@ -26,7 +26,19 @@ app.use((req, res, next) => {
 
 
 app.post('/flights', (req, res) => {
-    var flights = req.body.flights.filter(filterQantasSydneyFLights);
+    var flights = req.body.flights.filter(filterQantasSydneyFlights);
+    var flattenedFlightsData = [];
+
+    for (flightData of flights) {
+        flattenedFlightsData.push({
+            flight: flightData.airline + flightData.flightNumber,
+            origin: flightData.departure.airport,
+            destination: flightData.arrival.airport,
+            departureTime: flightData.departure.scheduled,
+        })
+    }
+
+    res.send({ flights: JSON.stringify(flattenedFlightsData) });
 });
 
 app.listen(3000, () => {
