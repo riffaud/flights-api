@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var port = process.env.PORT || 8080;
 
 function filterQantasSydneyFlights(flight) {
     return flight.airline == 'QF' &&
@@ -41,7 +42,7 @@ app.post('/flights', (req, res) => {
     res.send({ flights: JSON.stringify(flattenedFlightsData) });
 });
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log('App started and running on port 3000!');
 });
 
