@@ -7,9 +7,14 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^4.1.0",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.4.2"
+  },
   "scripts": {
-    "test": "mocha"
+    "start": "node index.js",
+    "test": "mocha ./tests"
   },
   "repository": {
     "type": "git",
