@@ -1,5 +1,4 @@
-# Flights API
-
+# Flights API ![build status](https://travis-ci.org/riffaudo/flights-api.svg?branch=master)
 Node.js API that accepts JSON posted to /flights , filters that data, and returns a few fields for each flight.
 
 ## Prerequisites
