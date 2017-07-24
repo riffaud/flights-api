@@ -1,17 +1,25 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+// let heroku define port
 var port = process.env.PORT || 8080;
 
+// return true if flight data is for a qantas airline, going or arriving to Sydney
 function filterQantasSydneyFlights(flight) {
-    return flight.airline == 'QF' &&
+    return flight.airline === 'QF' &&
         flight.departure !== undefined && flight.arrival !== undefined &&
-        (flight.departure.airport == 'SYD' || flight.arrival.airport == 'SYD');
+        (flight.departure.airport === 'SYD' || flight.arrival.airport === 'SYD');
+}
+
+// a valid payload has a defined body with flights data
+function isValidFlightsPayload(requestBody) {
+    return requestBody !== undefined && requestBody.flights !== undefined;
 }
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// set error message when JSON is malformed
 app.use((error, req, res, next) => {
     if (error instanceof SyntaxError) {
         res.status(400);
@@ -21,14 +29,17 @@ app.use((error, req, res, next) => {
     }
 });
 
+// set common json header for all responses
 app.use((req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
     next();
 });
 
-
+// filter flight data then map it to a flattened format
+// an error will be returned if the root elements of the payload are not defined
+// if flight data used for filtering is missing it will ignore the element
 app.post('/flights', (req, res) => {
-    if (req.body === undefined || req.body.flights === undefined) {
+    if (!isValidFlightsPayload(req.body)) {
         res.status(400);
         res.send({ error: "incomplete data" });
         return;
