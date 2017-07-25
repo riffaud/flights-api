@@ -1,15 +1,9 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var { filterQantasSydneyFlights, flattenFlightData } = require('./src/flight-data');
 // let heroku define port
 var port = process.env.PORT || 8080;
-
-// return true if flight data is for a qantas airline, going or arriving to Sydney
-function filterQantasSydneyFlights(flight) {
-    return flight.airline === 'QF' &&
-        flight.departure !== undefined && flight.arrival !== undefined &&
-        (flight.departure.airport === 'SYD' || flight.arrival.airport === 'SYD');
-}
 
 // a valid payload has a defined body with flights data
 function isValidFlightsPayload(requestBody) {
@@ -46,18 +40,8 @@ app.post('/flights', (req, res) => {
     }
 
     var flights = req.body.flights.filter(filterQantasSydneyFlights);
-    var flattenedFlightsData = [];
 
-    for (flightData of flights) {
-        flattenedFlightsData.push({
-            flight: flightData.airline + flightData.flightNumber,
-            origin: flightData.departure.airport,
-            destination: flightData.arrival.airport,
-            departureTime: flightData.departure.scheduled,
-        })
-    }
-
-    res.send({ flights: flattenedFlightsData });
+    res.send({ flights: flattenFlightData(flights) });
 });
 
 app.listen(port, () => {
